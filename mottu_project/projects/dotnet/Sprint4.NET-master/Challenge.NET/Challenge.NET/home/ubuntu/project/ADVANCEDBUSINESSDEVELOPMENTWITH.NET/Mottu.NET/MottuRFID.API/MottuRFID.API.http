@@ -1,0 +1,6 @@
+@MottuRFID.API_HostAddress = http://localhost:5193
+
+GET {{MottuRFID.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

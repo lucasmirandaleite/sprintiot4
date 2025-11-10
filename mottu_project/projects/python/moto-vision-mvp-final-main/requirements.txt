@@ -1,0 +1,26 @@
+# Core Vision e Deep Learning
+ultralytics==8.3.5
+torch==2.2.2+cpu
+torchvision==0.17.2+cpu
+torchaudio==2.2.2+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# Processamento de imagem e utilitários
+opencv-python-headless==4.10.0.84
+pandas
+numpy
+python-dotenv==1.0.1
+requests==2.32.3
+
+# Web API
+fastapi==0.114.1
+uvicorn[standard]==0.30.6
+python-multipart
+
+# Dashboard e visualização
+plotly==5.24.1
+streamlit==1.38.0
+altair
+
+# Outras dependências opcionais
+typing-extensions

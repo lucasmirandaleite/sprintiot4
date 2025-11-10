@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Rastreamento RFID</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+                    <h1 class="display-4">Sistema de Rastreamento RFID</h1>
+                    <p class="lead">Gerencie motos e registros RFID de forma eficiente e segura.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-motorcycle"></i> Gestão de Motos
+                        </h5>
+                        <p class="card-text">
+                            Cadastre, edite e visualize informações das motos do sistema. 
+                            Controle status, filiais e dados técnicos.
+                        </p>
+                        <div class="d-grid gap-2">
+                            <a href="/motos" class="btn btn-primary">Ver Todas as Motos</a>
+                            <a href="/motos/new" class="btn btn-success">Cadastrar Nova Moto</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-wifi"></i> Registros RFID
+                        </h5>
+                        <p class="card-text">
+                            Monitore e gerencie todos os registros de leitura RFID. 
+                            Acompanhe movimentações e histórico das motos.
+                        </p>
+                        <div class="d-grid gap-2">
+                            <a href="/registros" class="btn btn-primary">Ver Todos os Registros</a>
+                            <a href="/registros/new" class="btn btn-success">Novo Registro RFID</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Funcionalidades do Sistema</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6><i class="fas fa-list"></i> Listagem</h6>
+                                <p class="small">Visualize todas as motos e registros com filtros avançados e paginação.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6><i class="fas fa-plus"></i> Cadastro</h6>
+                                <p class="small">Adicione novas motos e registros RFID com validação de dados.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6><i class="fas fa-edit"></i> Edição</h6>
+                                <p class="small">Atualize informações existentes de forma rápida e segura.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6><i class="fas fa-eye"></i> Visualização</h6>
+                                <p class="small">Veja detalhes completos com informações relacionadas.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6><i class="fas fa-trash"></i> Exclusão</h6>
+                                <p class="small">Remova registros desnecessários com confirmação de segurança.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6><i class="fas fa-shield-alt"></i> Segurança</h6>
+                                <p class="small">Sistema protegido com autenticação e controle de acesso.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div th:replace="fragments/footer :: footer"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

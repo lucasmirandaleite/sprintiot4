@@ -1,0 +1,46 @@
+body {
+    background-color: #333333; /* Cinza escuro */
+    color: #00FF00; /* Verde neon para o texto principal */
+}
+
+/* Sobrescrever cores de componentes Bootstrap */
+.navbar {
+    background-color: #222222 !important; /* Fundo da barra de navegação mais escuro */
+}
+
+.navbar-brand, .nav-link, .dropdown-item {
+    color: #00FF00 !important; /* Texto da navegação verde */
+}
+
+.jumbotron, .card-header {
+    background-color: #444444 !important; /* Fundo de cabeçalhos e jumbotron */
+    color: #00FF00 !important;
+}
+
+.card {
+    background-color: #555555; /* Fundo dos cards */
+    border-color: #00FF00;
+}
+
+.card-title, h1, h2, h3, h4, h5, h6 {
+    color: #00FF00 !important; /* Títulos verdes */
+}
+
+.btn-primary {
+    background-color: #008000; /* Botões primários verdes */
+    border-color: #008000;
+}
+
+.btn-success {
+    background-color: #00CC00; /* Botões de sucesso verdes mais claros */
+    border-color: #00CC00;
+}
+
+/* Links em geral */
+a {
+    color: #00FF00;
+}
+
+a:hover {
+    color: #00AA00;
+}

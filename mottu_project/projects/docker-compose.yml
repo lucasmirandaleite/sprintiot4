@@ -1,0 +1,49 @@
+services:
+  # 1. Serviço da API de Negócio (.NET)
+  dotnet-api:
+    build:
+      # CORREÇÃO: Contexto no diretório que contém a Solution (.sln)
+      context: ./dotnet/Sprint4.NET-master/Challenge.NET/Challenge.NET/home/ubuntu/project/ADVANCEDBUSINESSDEVELOPMENTWITH.NET/Mottu.NET/
+      dockerfile: MottuRFID.API/Dockerfile
+    ports:
+      - "5193:8080"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - mottu-network
+    container_name: mottu-dotnet-api
+
+  # 2. Serviço da Visão Computacional (Python/FastAPI/Streamlit)
+  vision-python:
+    build:
+      context: ./python/moto-vision-mvp-final-main
+      dockerfile: Dockerfile
+    environment:
+      - BACKEND_URL=http://dotnet-api:8080
+      - VIDEO_PATH=video IOT.mp4
+      - SAVE_ANNOTATED_FRAMES=true
+    volumes:
+      - ./python/moto-vision-mvp-final-main:/app
+    networks:
+      - mottu-network
+    container_name: mottu-vision-python
+
+  # 3. Serviço do Dashboard (Streamlit)
+  dashboard:
+    build:
+      context: ./python/moto-vision-mvp-final-main
+      dockerfile: Dockerfile
+    command: streamlit run src/dashboard.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - DOTNET_API_URL=http://dotnet-api:8080
+    networks:
+      - mottu-network
+    depends_on:
+      - dotnet-api
+    container_name: mottu-dashboard
+
+networks:
+  mottu-network:
+    driver: bridge

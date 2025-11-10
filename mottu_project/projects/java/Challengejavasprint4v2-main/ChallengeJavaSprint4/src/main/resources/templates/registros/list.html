@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Registros RFID</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h2>Lista de Registros RFID</h2>
+                
+                <!-- Filtros -->
+                <form method="get" class="mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="filtro" th:value="${param.filtro}" 
+                                   placeholder="Filtrar por ponto de leitura">
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" name="motoId">
+                                <option value="">Todas as motos</option>
+                                <option th:each="moto : ${motos}" 
+                                        th:value="${moto.id}" 
+                                        th:text="${moto.modelo + ' - ' + moto.placa}"
+                                        th:selected="${param.motoId == moto.id.toString()}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">Filtrar</button>
+                            <a href="/registros" class="btn btn-secondary">Limpar</a>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Botão para adicionar novo registro -->
+                <div class="mb-3">
+                    <a href="/registros/new" class="btn btn-success">Novo Registro RFID</a>
+                </div>
+                
+                <!-- Tabela de registros -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Ponto de Leitura</th>
+                                <th>Data/Hora</th>
+                                <th>Moto</th>
+                                <th>Placa</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="registro : ${registros.content}">
+                                <td th:text="${registro.id}"></td>
+                                <td th:text="${registro.pontoLeitura}"></td>
+                                <td th:text="${#temporals.format(registro.dataHora, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                                <td th:text="${registro.motoModelo ?: 'N/A'}"></td>
+                                <td th:text="${registro.motoPlaca ?: 'N/A'}"></td>
+                                <td>
+                                    <a th:href="@{/registros/{id}(id=${registro.id})}" class="btn btn-info btn-sm">Ver</a>
+                                    <a th:href="@{/registros/{id}/edit(id=${registro.id})}" class="btn btn-warning btn-sm">Editar</a>
+                                    <form th:action="@{/registros/{id}/delete(id=${registro.id})}" method="post" style="display: inline;" 
+                                          onsubmit="return confirm('Tem certeza que deseja excluir este registro?')">
+                                        <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr th:if="${registros.content.empty}">
+                                <td colspan="6" class="text-center">Nenhum registro encontrado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Paginação -->
+                <nav th:if="${registros.totalPages > 1}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${registros.first} ? 'disabled'">
+                            <a class="page-link" th:href="@{/registros(page=${registros.number - 1}, size=${registros.size}, filtro=${param.filtro}, motoId=${param.motoId})}">Anterior</a>
+                        </li>
+                        
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, registros.totalPages - 1)}" 
+                            th:classappend="${i == registros.number} ? 'active'">
+                            <a class="page-link" th:href="@{/registros(page=${i}, size=${registros.size}, filtro=${param.filtro}, motoId=${param.motoId})}" 
+                               th:text="${i + 1}"></a>
+                        </li>
+                        
+                        <li class="page-item" th:classappend="${registros.last} ? 'disabled'">
+                            <a class="page-link" th:href="@{/registros(page=${registros.number + 1}, size=${registros.size}, filtro=${param.filtro}, motoId=${param.motoId})}">Próximo</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <div th:replace="fragments/footer :: footer"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
